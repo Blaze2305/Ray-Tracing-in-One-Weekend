@@ -28,7 +28,7 @@ build: |buildDir
 
 clean:
 	rm -rf ${BUILD_DIR} 
-	rm -f ${OUTPUT_FILE}*
+	rm -rf output.*
 .PHONY: clean
 
 buildDir:
