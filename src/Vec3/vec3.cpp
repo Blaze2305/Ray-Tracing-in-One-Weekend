@@ -64,7 +64,7 @@ inline vec3 operator+(const vec3 &u, const vec3 &v){
 	return vec3(u.axis[0] + v.axis[0], u.axis[1] + v.axis[1],u.axis[2] + v.axis[2]);
 }
 
-inline vec3 operator+(const vec3 &u, const vec3 &v){
+inline vec3 operator-(const vec3 &u, const vec3 &v){
 	return vec3(u.axis[0] - v.axis[0], u.axis[1] - v.axis[1],u.axis[2] - v.axis[2]);
 }
 

@@ -18,30 +18,23 @@ int main() {
     const int image_height = 1080;
 	std::ostringstream out;
 
-
     // Magick::Image image;
 
 
 
     // Render
+    // write the PPM header data 
     out << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
     for (int j = image_height-1; j >= 0; --j) {
-        std::cerr<<"\rScan Lines remaining: "<<j<<" "<<std::flush;
+        std::cout<<"\rScan Lines remaining: "<<j<<" "<<std::flush;
         for (int i = 0; i < image_width; ++i) {
-            auto r = double(i) / (image_width-1);
-            auto g = double(j) / (image_height-1);
-            auto b = 0.25;
-
-            int ir = static_cast<int>(255.999 * r);
-            int ig = static_cast<int>(255.999 * g);
-            int ib = static_cast<int>(255.999 * b);
-
-            out << ir << ' ' << ig << ' ' << ib << '\n';
+            color pixel_color(double(i)/(image_width-1),double(j) / (image_height-1),0.25);
+            write_color(out,pixel_color);
         }
     }
 
-    std::cerr<<"Done!\n";
+    std::cout<<"Done!\n";
 
     // convert the image from string to a Blob
     // got the solution form here https://stackoverflow.com/questions/26097220/how-to-construct-image-from-char-buffer-or-string-in-magick
@@ -49,9 +42,10 @@ int main() {
     // image.read(blob);
 	// image.write("logo.png");
 
-    // use the imageMagick cli to convert the ppm to a png or jpeg.
-    // $ magick output.ppm output.png
+    // Write the ppm data to the file.
+    // NOTE : use the imageMagick cli to convert the ppm to a png or jpeg.
+    //        $ magick output.ppm output.png
 	outputFile.open("output.ppm",std::ios::trunc);
 	outputFile<<out.str();
-    
+    outputFile.close();
 }
