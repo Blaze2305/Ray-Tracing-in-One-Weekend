@@ -1,5 +1,6 @@
 #include "vec3.h"
 
+// ----------------------- CLASS FUNCTIONS -------------------------------------------
 double vec3::x() const{
 	return axis[0];
 }
@@ -53,7 +54,46 @@ float vec3::length_squared() const{
 	return axis[0]*axis[0] +  axis[1]*axis[1] + axis[2]*axis[2] ;
 }
 
-// overload the << operator to push to cout
+// -----------------------------------------------------------------------------------
+
 inline std::ostream& operator<<(std::ostream&out, const vec3 &v){
 	return out << v.axis[0] << " "<< v.axis[1] << " " << v.axis[2] << '\n';
+}
+
+inline vec3 operator+(const vec3 &u, const vec3 &v){
+	return vec3(u.axis[0] + v.axis[0], u.axis[1] + v.axis[1],u.axis[2] + v.axis[2]);
+}
+
+inline vec3 operator+(const vec3 &u, const vec3 &v){
+	return vec3(u.axis[0] - v.axis[0], u.axis[1] - v.axis[1],u.axis[2] - v.axis[2]);
+}
+
+inline vec3 operator*(const vec3 &u, const vec3 &v){
+	return vec3(u.axis[0] * v.axis[0], u.axis[1] * v.axis[1],u.axis[2] * v.axis[2]);
+}
+
+inline vec3 operator*(const float t,const vec3 &v){
+	return vec3(v.axis[0] * t, v.axis[1] * t,v.axis[2] * t);
+}
+
+inline vec3 operator*(const vec3 &u,const float t){
+	return u * t;
+}
+
+inline vec3 operator/(const vec3 &u,const float t){
+	return (1/t) * u;
+}
+
+inline double dot(const vec3 &u,const vec3 &v){
+	return u.axis[0] * v.axis[0] + u.axis[1] * v.axis[1] + u.axis[2] * v.axis[2];
+}
+
+inline vec3 cross(const vec3 &u,const vec3 &v){
+	return vec3(u.axis[1]*v.axis[2] - u.axis[2]*v.axis[1],
+				u.axis[0]*v.axis[2] - u.axis[2]*v.axis[0],
+				u.axis[0]*v.axis[1] - u.axis[1]*v.axis[0]);
+}
+
+inline vec3 unit_vector(const vec3 &u){
+	return u / u.length();
 }
