@@ -42,6 +42,9 @@ int main() {
     // Magick::Blob blob(static_cast<const void *>(out.str().c_str()),out.str().size());
 
     // image.read(blob);
+
+    // use the imageMagick cli to convert the ppm to a png or jpeg.
+    // $ magick output.ppm output.png
 	outputFile.open("output.ppm",std::ios::trunc);
 	outputFile<<out.str();
 	// image.write("logo.png");
