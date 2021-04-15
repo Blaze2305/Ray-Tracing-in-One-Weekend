@@ -6,12 +6,12 @@
 #include <iostream>
 class vec3 {
 	public:
-		float axis[3];
+		double axis[3];
 
 		// default vector
 		vec3():axis{0,0,0}{};
 		// vector with x y z given
-		vec3(float x,float y,float z): axis{x,y,z}{};
+		vec3(double x,double y,double z): axis{x,y,z}{};
 
 
 		// axis getters
@@ -24,23 +24,23 @@ class vec3 {
 		// negate the vector
 		vec3 operator-() const;
 		// get the ith axis  as a const
-		float operator[](int i) const;
+		double operator[](int i) const;
 		// get the reference to the ith axis
-		float& operator[](int i);
+		double& operator[](int i);
 
 		// += operator
 		vec3& operator+=(const vec3 &v);
 		// *= operator
-		vec3& operator*=(const float t);
+		vec3& operator*=(const double t);
 		// /= operator
-		vec3& operator/=(const float t);
+		vec3& operator/=(const double t);
 
 
 		// vector length functions
 
-		float length() const;
+		double length() const;
 
-		float length_squared() const;
+		double length_squared() const;
 };
 
 // overload the << operator to push to cout
@@ -59,15 +59,15 @@ inline vec3 operator*(const vec3 &u,const vec3 &v);
 
 // overload multiplication for number and vector
 // NOTE: This refers to the normal scalar multiplication
-inline vec3 operator*(const float t,const vec3 &v);
+inline vec3 operator*(const double t,const vec3 &v);
 
 // overload multiplication for vector and number
-// NOTE: This is different from above in position, ie above is <vec3>*<float> 
-// this is <float>*<vec3>
-inline vec3 operator*(const vec3 &u,const float t);
+// NOTE: This is different from above in position, ie above is <vec3>*<double> 
+// this is <double>*<vec3>
+inline vec3 operator*(const vec3 &u,const double t);
 
 // overload division for vector and number
-inline vec3 operator/(const vec3 &u,const float t);
+inline vec3 operator/(const vec3 &u,const double t);
 
 // dot product of two vectors
 inline double dot(const vec3 &u, const vec3 &v);

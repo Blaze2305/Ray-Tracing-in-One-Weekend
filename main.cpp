@@ -6,18 +6,24 @@
 #include <fstream>
 #include <sstream>
 
+#include "src/Color/color.h"
+#include "src/Vec3/vec3.h"
+
 std::ofstream outputFile;
 
 int main() {
 
     // Image
-
     const int image_width = 1080;
     const int image_height = 1080;
 	std::ostringstream out;
-    // Magick::Image image;
-    // Render
 
+
+    // Magick::Image image;
+
+
+
+    // Render
     out << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
     for (int j = image_height-1; j >= 0; --j) {
@@ -40,12 +46,12 @@ int main() {
     // convert the image from string to a Blob
     // got the solution form here https://stackoverflow.com/questions/26097220/how-to-construct-image-from-char-buffer-or-string-in-magick
     // Magick::Blob blob(static_cast<const void *>(out.str().c_str()),out.str().size());
-
     // image.read(blob);
+	// image.write("logo.png");
 
     // use the imageMagick cli to convert the ppm to a png or jpeg.
     // $ magick output.ppm output.png
 	outputFile.open("output.ppm",std::ios::trunc);
 	outputFile<<out.str();
-	// image.write("logo.png");
+    
 }
