@@ -12,8 +12,8 @@ int main() {
 
     // Image
 
-    const int image_width = 256;
-    const int image_height = 256;
+    const int image_width = 1080;
+    const int image_height = 1080;
 	std::ostringstream out;
     // Magick::Image image;
     // Render
@@ -21,6 +21,7 @@ int main() {
     out << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
     for (int j = image_height-1; j >= 0; --j) {
+        std::cerr<<"\rScan Lines remaining: "<<j<<" "<<std::flush;
         for (int i = 0; i < image_width; ++i) {
             auto r = double(i) / (image_width-1);
             auto g = double(j) / (image_height-1);
@@ -33,12 +34,15 @@ int main() {
             out << ir << ' ' << ig << ' ' << ib << '\n';
         }
     }
+
+    std::cerr<<"Done!\n";
+
     // convert the image from string to a Blob
     // got the solution form here https://stackoverflow.com/questions/26097220/how-to-construct-image-from-char-buffer-or-string-in-magick
     // Magick::Blob blob(static_cast<const void *>(out.str().c_str()),out.str().size());
 
     // image.read(blob);
-	outputFile.open("output.ppm",std::ios::app);
+	outputFile.open("output.ppm",std::ios::trunc);
 	outputFile<<out.str();
 	// image.write("logo.png");
 }
