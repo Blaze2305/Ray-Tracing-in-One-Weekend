@@ -8,6 +8,7 @@
 
 #include "src/Color/color.h"
 #include "src/Vec3/vec3.h"
+#include "src/Ray/ray.h"
 
 std::ofstream outputFile;
 
