@@ -40,15 +40,17 @@ double hit_sphere(const point3 & center,double radius,const ray& r){
 	vec3 oc = r.origin() - center;
 
 	// a => b . b where b = ray direction vec
-	double a = dot(r.direction(),r.direction());
+	// a vector dotted with itself is the same as its length squared
+	// so we replace b.b with b.direction().length_squared()
+	double a = r.direction().length_squared();
 
 	// b => 2 * b . (A - C) , b = ray direction vec
-	double b = 2 * dot(r.direction(),oc);
+	double half_b = dot(r.direction(),oc);
 
 	// c => (A - C).(A - C) - radius^2
-	double c = dot(oc,oc) - radius * radius;
+	double c = oc.length_squared() - radius * radius;
 
-	double discriminant = b * b - 4 * a * c;
+	double discriminant = half_b * half_b - a * c;
 	
 	
 	// returning boolean true or false will give all the sides of the sphere the same color
@@ -62,6 +64,6 @@ double hit_sphere(const point3 & center,double radius,const ray& r){
 	if(discriminant<0){
 		return -1;
 	}else{
-		return (-b - sqrt(discriminant))/2*a;
+		return (-half_b- sqrt(discriminant))/a;
 	}
 }
