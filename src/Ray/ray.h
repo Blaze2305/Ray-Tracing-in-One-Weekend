@@ -42,6 +42,6 @@ color ray_color(const ray& r);
 // this is of the form a^2 + b^2 + 2ab = 0; a  quadratic equation
 // So if the ray intersects the sphere there shoudl exists roots for the equation to give the values of t
 // for roots to exist we check the determinant D = b^2 - 4ac. if D > 0 then it intersects
-bool hit_sphere(const point3& center, double radius, const ray& r);
+double hit_sphere(const point3& center, double radius, const ray& r);
 
 #endif
