@@ -31,6 +31,8 @@ color ray_color(const ray& r){
     return (1.0-t)*color(1.0, 1.0, 1.0) + t*color(0.5, 0.7, 1.0);
 }
 
+
+// THIS FUNCTION IS DEPRECATED IN FAVOR OF hittable::hit(const ray& r,double t_min, double t_max, hit_record& rec)
 double hit_sphere(const point3 & center,double radius,const ray& r){
 	// expanded form of the vector equation of the sphere
 	// ==> t^2(b.b) + 2tb.(A-C) + (A - C).(A - C) - r^2 = 0
