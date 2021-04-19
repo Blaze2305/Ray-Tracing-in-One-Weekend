@@ -32,6 +32,11 @@ clean:
 	rm -rf output.png
 .PHONY: clean
 
+test: |build
+	${BUILD_DIR}/${BUILD_FILE} && magick output.ppm output.png
+
+
+
 buildDir:
 	test -d ${BUILD_DIR} || mkdir ${BUILD_DIR}
 .PHONY: buildDir

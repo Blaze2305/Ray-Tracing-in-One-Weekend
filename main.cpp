@@ -32,7 +32,8 @@ int main() {
     // World
     hittable_list world;
     world.add(std::make_shared<sphere>(point3(0,0,-1),0.5));
-    world.add(std::make_shared<sphere>(point3(0,-100,-1),100));
+    world.add(std::make_shared<sphere>(point3(0.4,0,-0.5),0.08));
+    world.add(std::make_shared<sphere>(point3(0,-100.5,-1),100));
 
 
     // Camera
@@ -64,7 +65,7 @@ int main() {
         }
     }
 
-    std::cout<<"Done!\n";
+    std::cout<<"\nDone!\n";
 
     // convert the image from string to a Blob
     // got the solution form here https://stackoverflow.com/questions/26097220/how-to-construct-image-from-char-buffer-or-string-in-magick
