@@ -30,8 +30,8 @@ bool sphere::hit(const ray& r,double t_min, double t_max, hit_record& rec) const
 
 
 	// get one root and check if it lies between the min and max t
+	//  the hit only “counts” if tmin<t<tmax
 	double root =  (-half_b - std::sqrt(discriminant))/a;
-
 	if(root < t_min || t_max < root){
 		// if it doesnt , find the other root and do the same check
 		root = (-half_b + std::sqrt(discriminant))/a;
@@ -47,10 +47,12 @@ bool sphere::hit(const ray& r,double t_min, double t_max, hit_record& rec) const
 	// we get that using ray::at(t)
 	rec.p = r.at(root);
 	// the normal at a point P is P - C, we divide by the radius to make it a unit vector
-	rec.normal = (rec.p - center)/radius;
+	vec3 outward_normal = (rec.p - center)/radius;
+
+	// set the face normal to always be the outwards facing normal
+	rec.set_face_normal(r,outward_normal);
 
 	return true;
 }
-
 
 // ---------------------------------------------
