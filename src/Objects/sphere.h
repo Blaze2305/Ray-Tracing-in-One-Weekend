@@ -14,7 +14,7 @@ class sphere : public  hittable{
 
 		sphere(){}
 
-		sphere(point3& cen,double rad):center(cen),radius(rad){}
+		sphere(point3 cen,double rad):center(cen),radius(rad){}
 
 		virtual bool hit(const ray& r,double t_min, double t_max, hit_record& rec) const override;
 };

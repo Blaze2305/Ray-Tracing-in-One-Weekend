@@ -1,4 +1,4 @@
-#include "ray.h"
+#include "hittable.h"
 
 // -------------- CLASS METHODS ----------------
 
@@ -15,22 +15,6 @@ point3 ray::at(double t) const{
 }
 
 // ------------------------------------------------
-
-color ray_color(const ray& r){
-	double intersection = hit_sphere(point3(0,0,-1),0.4,r);
-	// we're only handling t>0 because t is the distance on the rays direction vector at where the intersection happens
-	// so if t is -ve that means that the intersection is behind us , and that is not something we want to show on the screen
-	// so if it is less than 0 , we just ignore it as it wont be visible anyway
-	if (intersection > 0){
-		// the normal vector at any point P is (P - C) where C is the center of the sphere
-		vec3 N = unit_vector(r.at(intersection) - vec3(0,0,-1));
-		return 0.5*color(N.x()+1, N.y()+1, N.z()+1);
-	}
-	vec3 unit_direction = unit_vector(r.direction());
-    double t = 0.5*(unit_direction.y() + 1.0);
-    return (1.0-t)*color(1.0, 1.0, 1.0) + t*color(0.5, 0.7, 1.0);
-}
-
 
 // THIS FUNCTION IS DEPRECATED IN FAVOR OF hittable::hit(const ray& r,double t_min, double t_max, hit_record& rec)
 double hit_sphere(const point3 & center,double radius,const ray& r){
@@ -68,4 +52,32 @@ double hit_sphere(const point3 & center,double radius,const ray& r){
 	}else{
 		return (-half_b- sqrt(discriminant))/a;
 	}
+}
+
+// DEPRECATED IN FAVOR OF ray_color(const ray&r, const hittable& world)
+color ray_color(const ray& r){
+	double intersection = hit_sphere(point3(0,0,-1),0.4,r);
+	// we're only handling t>0 because t is the distance on the rays direction vector at where the intersection happens
+	// so if t is -ve that means that the intersection is behind us , and that is not something we want to show on the screen
+	// so if it is less than 0 , we just ignore it as it wont be visible anyway
+	if (intersection > 0){
+		// the normal vector at any point P is (P - C) where C is the center of the sphere
+		vec3 N = unit_vector(r.at(intersection) - vec3(0,0,-1));
+		return 0.5*color(N.x()+1, N.y()+1, N.z()+1);
+	}
+	vec3 unit_direction = unit_vector(r.direction());
+    double t = 0.5*(unit_direction.y() + 1.0);
+    return (1.0-t)*color(1.0, 1.0, 1.0) + t*color(0.5, 0.7, 1.0);
+}
+
+
+color ray_color(const ray& r, const hittable& world){
+	hit_record rec;
+	// check if the ray hits the object, if yes, return the normal shade
+	if(world.hit(r,0,infinity,rec)){
+		return 0.5*(rec.normal + color(1,1,1));
+	}
+	vec3 unit_direction = unit_vector(r.direction());
+    double t = 0.5*(unit_direction.y() + 1.0);
+    return (1.0-t)*color(1.0, 1.0, 1.0) + t*color(0.5, 0.7, 1.0);
 }

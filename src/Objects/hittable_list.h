@@ -5,7 +5,6 @@
 #include <memory>
 #include <vector>
 #include "hittable.h"
-#include "../Ray/ray.h"
 
 
 class hittable_list : public hittable{
@@ -25,7 +24,8 @@ class hittable_list : public hittable{
 		//  add a new object to the list of objects
 		void add(std::shared_ptr<hittable> object);
 
-		// override the hit function for each object in the list of objects
+		// override the hit function for each object in the list of objects,
+		// we use this to check if the ray hits any of the objects in this list
 		virtual bool hit(const ray& r,double t_min, double t_max, hit_record& rec) const  override;
 };
 

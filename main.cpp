@@ -5,10 +5,13 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <memory>
 
 #include "src/Color/color.h"
 #include "src/Vec3/vec3.h"
-#include "src/Ray/ray.h"
+#include "src/Objects/hittable_list.h"
+#include "src/Objects/hittable.h"
+#include "src/Objects/sphere.h"
 
 std::ofstream outputFile;
 
@@ -17,14 +20,20 @@ int main() {
     // Image
     // const int image_width = 1080;
     // const int image_height = 1080;
+    // Magick::Image image;
 
-
+    // Image
     const double aspect_ratio = 16.0/9.0;
     const int image_width = 1080;
     const int image_height = static_cast<int>(image_width/aspect_ratio);
 	std::ostringstream out;
 
-    // Magick::Image image;
+
+    // World
+    hittable_list world;
+    world.add(std::make_shared<sphere>(point3(0,0,-1),0.5));
+    world.add(std::make_shared<sphere>(point3(0,-100,-1),100));
+
 
     // Camera
 
@@ -50,7 +59,7 @@ int main() {
             double v =double(j)/(image_height-1);
             ray r(origin,lower_left_corner + u * horizontal + v * vertical - origin);
             // color pixel_color(double(i)/(image_width-1),double(j) / (image_height-1),0.25);
-            color pixel_color = ray_color(r);
+            color pixel_color = ray_color(r,world);
             write_color(out,pixel_color);
         }
     }
